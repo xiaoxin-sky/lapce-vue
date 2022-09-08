@@ -1,0 +1,34 @@
+[tasks.default]
+clear = true
+dependencies = [
+  "fmt",
+  "check",
+  "clippy",
+  "release",
+]
+
+[tasks.fmt]
+command = "cargo"
+args = ["fmt"]
+
+[tasks.release]
+dependencies = ["build-release"]
+
+[tasks.dev]
+dependencies = ["build-dev"]
+
+[tasks.check]
+command = "cargo"
+args = ["check"]
+
+[tasks.clippy]
+command = "cargo"
+args = ["clippy"]
+
+[tasks.build-dev]
+command = "cargo"
+args = ["install", "--path", ".", "--debug"]
+
+[tasks.build-release]
+command = "cargo"
+args = ["install", "--path", "."]
