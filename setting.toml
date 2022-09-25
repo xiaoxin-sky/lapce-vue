@@ -1,0 +1,33 @@
+[lapce-vue]
+[lapce-vue.typescript]
+serverPath = "/Users/xiaoxin/Library/pnpm/global/5/.pnpm/typescript@4.7.4/node_modules/typescript/lib/tsserverlibrary.js"
+[lapce-vue.languageFeatures]
+references = true
+definition = true
+typeDefinition = true
+callHierarchy = true
+hover = true
+rename = true
+renameFileRefactoring = true
+signatureHelp = true
+codeAction = true
+workspaceSymbol = true
+diagnostics = true
+documentHighlight = true
+documentLink = true
+semanticTokens = false
+[lapce-vue.languageFeatures.schemaRequestService]
+getDocumentContentRequest = true
+[lapce-vue.languageFeatures.codeLens]
+showReferencesNotification = true
+[lapce-vue.languageFeatures.completion]
+defaultTagNameCase = 'both'
+defaultAttrNameCase = 'kebabCase'
+getDocumentNameCasesRequest = false
+getDocumentSelectionRequest = false
+[lapce-vue.documentFeatures]
+selectionRange = true
+foldingRange = true
+linkedEditingRange = true
+documentSymbol = true
+documentColor = true
