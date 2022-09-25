@@ -20,11 +20,11 @@ fn initialize(params: InitializeParams) -> Result<()> {
         // lsp language id
         language: Some(String::from("vue")),
         // glob pattern
-        pattern: Some(String::from("**/*.vue")),
+        pattern: Some(String::from("**.vue")),
         // like file:
         scheme: None,
     }];
-    let mut server_args = vec![];
+    let mut server_args = vec!["--stdio".to_string()];
 
     // Check for user specified LSP server path
     // ```
@@ -64,21 +64,6 @@ fn initialize(params: InitializeParams) -> Result<()> {
         }
     }
 
-    // Architecture check
-    let _ = match VoltEnvironment::architecture().as_deref() {
-        Ok("x86_64") => "x86_64",
-        Ok("aarch64") => "aarch64",
-        _ => return Ok(()),
-    };
-
-    // OS check
-    let _ = match VoltEnvironment::operating_system().as_deref() {
-        Ok("macos") => "macos",
-        Ok("linux") => "linux",
-        Ok("windows") => "windows",
-        _ => return Ok(()),
-    };
-
     // Download URL
     // let _ = format!("https://github.com/<name>/<project>/releases/download/<version>/{filename}");
 
@@ -93,7 +78,7 @@ fn initialize(params: InitializeParams) -> Result<()> {
 
     // Plugin working directory
     // let volt_uri = VoltEnvironment::uri()?;
-    let server_path = Url::parse("")?;
+    let server_path = Url::parse("urn:vue-language-server")?;
 
     // if you want to use server from PATH
     // let server_path = Url::parse(&format!("urn:{filename}"))?;
