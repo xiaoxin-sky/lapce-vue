@@ -1,4 +1,4 @@
-use std::path::Path;
+use std::{fs, path::Path};
 
 use anyhow::Result;
 use lapce_plugin::{
@@ -8,6 +8,7 @@ use lapce_plugin::{
     },
     register_plugin, LapcePlugin, VoltEnvironment, PLUGIN_RPC,
 };
+use lapce_vue::config::{self, LanguageOptionEnum};
 use serde_json::Value;
 
 #[derive(Default)]
@@ -16,6 +17,30 @@ struct State {}
 register_plugin!(State);
 
 fn initialize(params: InitializeParams) -> Result<()> {
+    let main_language_feature_option =
+        config::get_initialization_options(LanguageOptionEnum::main_language_feature);
+    let second_language_feature_option =
+        config::get_initialization_options(LanguageOptionEnum::second_language_feature);
+    let doc_language_feature_option =
+        config::get_initialization_options(LanguageOptionEnum::document_feature);
+
+    // PLUGIN_RPC.stderr(&format!(
+    //     "lapce_params:{:#?}",
+    //     params.initialization_options
+    // ));
+    // PLUGIN_RPC.stderr(&format!(
+    //     "main_language_feature_option:{:#?}",
+    //     main_language_feature_option
+    // ));
+    // PLUGIN_RPC.stderr(&format!(
+    //     "second_language_feature_option:{:#?}",
+    //     second_language_feature_option
+    // ));
+    // PLUGIN_RPC.stderr(&format!(
+    //     "doc_language_feature_option:{:#?}",
+    //     doc_language_feature_option
+    // ));
+
     let document_selector: DocumentSelector = vec![DocumentFilter {
         // lsp language id
         language: Some(String::from("vue")),
@@ -86,10 +111,22 @@ fn initialize(params: InitializeParams) -> Result<()> {
     // Available language IDs
     // https://github.com/lapce/lapce/blob/HEAD/lapce-proxy/src/buffer.rs#L173
     PLUGIN_RPC.start_lsp(
-        server_path,
-        server_args,
-        document_selector,
-        params.initialization_options,
+        server_path.clone(),
+        server_args.clone(),
+        document_selector.clone(),
+        main_language_feature_option,
+    );
+    PLUGIN_RPC.start_lsp(
+        server_path.clone(),
+        server_args.clone(),
+        document_selector.clone(),
+        second_language_feature_option,
+    );
+    PLUGIN_RPC.start_lsp(
+        server_path.clone(),
+        server_args.clone(),
+        document_selector.clone(),
+        doc_language_feature_option,
     );
 
     Ok(())

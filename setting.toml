@@ -1,6 +1,7 @@
 [lapce-vue]
 [lapce-vue.typescript]
-serverPath = "/Users/xiaoxin/Library/pnpm/global/5/.pnpm/typescript@4.7.4/node_modules/typescript/lib/tsserverlibrary.js"
+# serverPath = "/Users/xiaoxin/Library/pnpm/global/5/.pnpm/typescript@4.7.4/node_modules/typescript/lib/tsserverlibrary.js"
+serverPath = "/Users/skymac/node_modules/typescript/lib/tsserverlibrary.js"
 [lapce-vue.languageFeatures]
 references = true
 definition = true
