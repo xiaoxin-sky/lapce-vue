@@ -49,7 +49,12 @@ fn initialize(params: InitializeParams) -> Result<()> {
         // like file:
         scheme: None,
     }];
-    let mut server_args = vec!["--stdio".to_string()];
+    let mut server_args = vec![
+        // "/Users/xiaoxin/node_modules/@volar/vue-language-server/out/nodeServer.js".to_string(),
+        "/Users/johnsonchu/Desktop/GitHub/volar/packages/vue-language-server/bin/vue-language-server.js".to_string(),
+        "--stdio".to_string(),
+        "--inspect".to_string(),
+    ];
 
     // Check for user specified LSP server path
     // ```

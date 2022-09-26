@@ -185,18 +185,18 @@ struct ServerInitializationOptions {
 }
 pub fn get_main_language_feature() -> LanguageFeatures {
     LanguageFeatures {
-        references: Some(true),
+        references: None,
         // 不存在
-        implementation: Some(true),
-        definition: Some(true),
-        typeDefinition: Some(true),
-        callHierarchy: Some(true),
-        hover: Some(true),
-        rename: Some(true),
-        renameFileRefactoring: Some(true),
-        signatureHelp: Some(true),
-        codeAction: Some(true),
-        workspaceSymbol: Some(true),
+        implementation: None,
+        definition: None,
+        typeDefinition: None,
+        callHierarchy: None,
+        hover: None,
+        rename: None,
+        renameFileRefactoring: None,
+        signatureHelp: None,
+        codeAction: None,
+        workspaceSymbol: None,
         completion: Some(Completion {
             defaultTagNameCase: DefaultTagNameCase::both,
             defaultAttrNameCase: DefaultAttrNameCase::kebabCase,
@@ -204,9 +204,7 @@ pub fn get_main_language_feature() -> LanguageFeatures {
             getDocumentSelectionRequest: Some(false),
             ignoreTriggerCharacters: None,
         }),
-        schemaRequestService: Some(SchemaRequestService {
-            getDocumentContentRequest: Some(true),
-        }),
+        schemaRequestService: None,
         documentHighlight: None,
         documentLink: None,
         codeLens: None,
@@ -218,18 +216,14 @@ pub fn get_main_language_feature() -> LanguageFeatures {
 
 pub fn get_second_language_feature() -> LanguageFeatures {
     LanguageFeatures {
-        documentHighlight: Some(true),
-        documentLink: Some(true),
-        codeLens: Some(CodeLens {
-            showReferencesNotification: Some(true),
-        }),
-        semanticTokens: Some(false),
+        documentHighlight: None,
+        documentLink: None,
+        codeLens: None,
+        semanticTokens: None,
         // 不存在
         inlayHints: None,
-        diagnostics: Some(true),
-        schemaRequestService: Some(SchemaRequestService {
-            getDocumentContentRequest: Some(true),
-        }),
+        diagnostics: None,
+        schemaRequestService: None,
         references: None,
         implementation: None,
         definition: None,
@@ -255,11 +249,11 @@ pub fn get_doc_feature() -> DocumentFeatures {
         //     "typescriptreact".to_owned(),
         // ],
         allowedLanguageIds: None,
-        selectionRange: Some(true),
-        foldingRange: Some(true),
-        linkedEditingRange: Some(true),
-        documentSymbol: Some(true),
-        documentColor: Some(true),
+        selectionRange: None,
+        foldingRange: None,
+        linkedEditingRange: None,
+        documentSymbol: None,
+        documentColor: None,
         // 没有格式胡
         documentFormatting: None,
     }
@@ -286,7 +280,8 @@ pub fn get_initialization_options(name: LanguageOptionEnum) -> Option<Value> {
     let initialization_options = ServerInitializationOptions {
         // textDocumentSync: TextDocumentSyncKind::Incremental,
         typescript: TypescriptPath {
-            serverPath: "/Users/skymac/node_modules/typescript/lib/tsserverlibrary.js".to_owned(),
+            // serverPath: "/Users/skymac/node_modules/typescript/lib/tsserverlibrary.js".to_owned(),
+            serverPath: "/Users/xiaoxin/Library/pnpm/global/5/.pnpm/typescript@4.7.4/node_modules/typescript/lib/tsserverlibrary.js".to_owned(),
             localizedPath: None, // localizedPath: Some(
                                  //     "/Users/skymac/node_modules/typescript/lib/zh-cn/diagnosticMessages.generated.json"
                                  //         .to_owned(),
