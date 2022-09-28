@@ -19,10 +19,10 @@ register_plugin!(State);
 fn initialize(params: InitializeParams) -> Result<()> {
     let main_language_feature_option =
         config::get_initialization_options(LanguageOptionEnum::main_language_feature);
-    let second_language_feature_option =
-        config::get_initialization_options(LanguageOptionEnum::second_language_feature);
-    let doc_language_feature_option =
-        config::get_initialization_options(LanguageOptionEnum::document_feature);
+    // let second_language_feature_option =
+    //     config::get_initialization_options(LanguageOptionEnum::second_language_feature);
+    // let doc_language_feature_option =
+    //     config::get_initialization_options(LanguageOptionEnum::document_feature);
 
     // PLUGIN_RPC.stderr(&format!(
     //     "lapce_params:{:#?}",
@@ -51,8 +51,8 @@ fn initialize(params: InitializeParams) -> Result<()> {
     }];
     let mut server_args = vec![
         // "/Users/xiaoxin/node_modules/@volar/vue-language-server/out/nodeServer.js".to_string(),
-        "/Users/johnsonchu/Desktop/GitHub/volar/packages/vue-language-server/bin/vue-language-server.js".to_string(),
-        "--stdio".to_string(),
+        // "/Users/johnsonchu/Desktop/GitHub/volar/packages/vue-language-server/bin/vue-language-server.js".to_string(),
+        // "--stdio".to_string(),
         "--inspect".to_string(),
     ];
 
@@ -108,7 +108,9 @@ fn initialize(params: InitializeParams) -> Result<()> {
 
     // Plugin working directory
     // let volt_uri = VoltEnvironment::uri()?;
-    let server_path = Url::parse("urn:vue-language-server")?;
+    let server_path = Url::parse(
+        "file:///Users/xiaoxin/workspace/volar/packages/vue-language-server/bin/run.sh",
+    )?;
 
     // if you want to use server from PATH
     // let server_path = Url::parse(&format!("urn:{filename}"))?;
@@ -121,18 +123,18 @@ fn initialize(params: InitializeParams) -> Result<()> {
         document_selector.clone(),
         main_language_feature_option,
     );
-    PLUGIN_RPC.start_lsp(
-        server_path.clone(),
-        server_args.clone(),
-        document_selector.clone(),
-        second_language_feature_option,
-    );
-    PLUGIN_RPC.start_lsp(
-        server_path.clone(),
-        server_args.clone(),
-        document_selector.clone(),
-        doc_language_feature_option,
-    );
+    // PLUGIN_RPC.start_lsp(
+    //     server_path.clone(),
+    //     server_args.clone(),
+    //     document_selector.clone(),
+    //     second_language_feature_option,
+    // );
+    // PLUGIN_RPC.start_lsp(
+    //     server_path.clone(),
+    //     server_args.clone(),
+    //     document_selector.clone(),
+    //     doc_language_feature_option,
+    // );
 
     Ok(())
 }
