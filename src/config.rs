@@ -103,7 +103,8 @@ pub struct LanguageFeatures {
     #[serde(skip_serializing_if = "Option::is_none")]
     signatureHelp: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    completion: Option<Completion>,
+    // completion: Option<Completion>,
+    completion: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     documentHighlight: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -112,23 +113,24 @@ pub struct LanguageFeatures {
     workspaceSymbol: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     codeLens: Option<CodeLens>,
+    // codeLens: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     semanticTokens: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     codeAction: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     inlayHints: Option<bool>,
+    /// 诊断
     #[serde(skip_serializing_if = "Option::is_none")]
     diagnostics: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    schemaRequestService: Option<SchemaRequestService>,
+    // schemaRequestService: Option<SchemaRequestService>,
+    schemaRequestService: Option<bool>,
 }
 
 #[derive(Debug, PartialEq, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct DocumentFeatures {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    allowedLanguageIds: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     selectionRange: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -145,36 +147,6 @@ pub struct DocumentFeatures {
 
 #[derive(Debug, PartialEq, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct MainLanguageFeature {
-    pub references: Option<bool>,
-    pub implementation: Option<bool>,
-    pub definition: Option<bool>,
-    pub typeDefinition: Option<bool>,
-    pub callHierarchy: Option<bool>,
-    pub hover: Option<bool>,
-    pub rename: Option<bool>,
-    pub renameFileRefactoring: Option<bool>,
-    pub signatureHelp: Option<bool>,
-    pub codeAction: Option<bool>,
-    pub workspaceSymbol: Option<bool>,
-    pub completion: Completion,
-    pub schemaRequestService: Option<SchemaRequestService>,
-}
-
-#[derive(Debug, PartialEq, Clone, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-struct SecondLanguageFeature {
-    documentHighlight: Option<bool>,
-    documentLink: Option<bool>,
-    codeLens: Option<CodeLens>,
-    semanticTokens: Option<bool>,
-    inlayHints: Option<bool>,
-    diagnostics: Option<bool>,
-    schemaRequestService: Option<SchemaRequestService>,
-}
-
-#[derive(Debug, PartialEq, Clone, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
 struct ServerInitializationOptions {
     // textDocumentSync: TextDocumentSyncKind,
     typescript: TypescriptPath,
@@ -185,44 +157,50 @@ struct ServerInitializationOptions {
 }
 pub fn get_main_language_feature() -> LanguageFeatures {
     LanguageFeatures {
-        references: None,
+        references: Some(true),
         // 不存在
-        implementation: None,
-        definition: None,
-        typeDefinition: None,
-        callHierarchy: None,
+        implementation: Some(true),
+        definition: Some(true),
+        typeDefinition: Some(true),
+        callHierarchy: Some(true),
         hover: None,
-        rename: None,
-        renameFileRefactoring: None,
-        signatureHelp: None,
-        codeAction: None,
-        workspaceSymbol: None,
-        completion: Some(Completion {
-            defaultTagNameCase: DefaultTagNameCase::both,
-            defaultAttrNameCase: DefaultAttrNameCase::kebabCase,
-            getDocumentNameCasesRequest: Some(false),
-            getDocumentSelectionRequest: Some(false),
-            ignoreTriggerCharacters: None,
+        rename: Some(true),
+        renameFileRefactoring: Some(true),
+        signatureHelp: Some(true),
+        codeAction: Some(true),
+        workspaceSymbol: Some(true),
+        // completion: Some(Completion {
+        //     defaultTagNameCase: DefaultTagNameCase::both,
+        //     defaultAttrNameCase: DefaultAttrNameCase::kebabCase,
+        //     getDocumentNameCasesRequest: Some(true),
+        //     getDocumentSelectionRequest: Some(true),
+        //     ignoreTriggerCharacters: None,
+        // }),
+        completion: Some(true),
+        schemaRequestService: Some(true),
+        documentHighlight: Some(true),
+        documentLink: Some(true),
+        codeLens: Some(CodeLens {
+            showReferencesNotification: Some(true),
         }),
-        schemaRequestService: None,
-        documentHighlight: None,
-        documentLink: None,
-        codeLens: None,
-        semanticTokens: None,
-        inlayHints: None,
-        diagnostics: None,
+        // 语义标记
+        semanticTokens: Some(false),
+        inlayHints: Some(true),
+        diagnostics: Some(true),
     }
 }
 
 pub fn get_second_language_feature() -> LanguageFeatures {
     LanguageFeatures {
-        documentHighlight: None,
-        documentLink: None,
-        codeLens: None,
-        semanticTokens: None,
+        documentHighlight: Some(true),
+        documentLink: Some(true),
+        codeLens: Some(CodeLens {
+            showReferencesNotification: Some(true),
+        }),
+        semanticTokens: Some(true),
         // 不存在
-        inlayHints: None,
-        diagnostics: None,
+        inlayHints: Some(true),
+        diagnostics: Some(true),
         schemaRequestService: None,
         references: None,
         implementation: None,
@@ -241,21 +219,27 @@ pub fn get_second_language_feature() -> LanguageFeatures {
 
 pub fn get_doc_feature() -> DocumentFeatures {
     DocumentFeatures {
-        // allowedLanguageIds: vec![
+        // allowedLanguageIds: Some(vec![
         //     "vue".to_owned(),
         //     "javascript".to_owned(),
         //     "typescript".to_owned(),
         //     "javascriptreact".to_owned(),
         //     "typescriptreact".to_owned(),
-        // ],
-        allowedLanguageIds: None,
-        selectionRange: None,
-        foldingRange: None,
-        linkedEditingRange: None,
-        documentSymbol: None,
-        documentColor: None,
-        // 没有格式胡
-        documentFormatting: None,
+        // ]),
+        // allowedLanguageIds: Some(),
+        // selectionRange: Some(true),
+        // foldingRange: Some(true),
+        // linkedEditingRange: Some(true),
+        // documentSymbol: Some(true),
+        // documentColor: Some(true),
+        // // 没有格式胡
+        // documentFormatting: Some(true),
+        selectionRange: Some(true),
+        foldingRange: Some(true),
+        linkedEditingRange: Some(true),
+        documentSymbol: Some(true),
+        documentColor: Some(true),
+        documentFormatting: Some(true),
     }
 }
 
@@ -280,15 +264,19 @@ pub fn get_initialization_options(name: LanguageOptionEnum) -> Option<Value> {
     let initialization_options = ServerInitializationOptions {
         // textDocumentSync: TextDocumentSyncKind::Incremental,
         typescript: TypescriptPath {
-            // serverPath: "/Users/skymac/node_modules/typescript/lib/tsserverlibrary.js".to_owned(),
-            serverPath: "/Users/xiaoxin/Library/pnpm/global/5/.pnpm/typescript@4.7.4/node_modules/typescript/lib/tsserverlibrary.js".to_owned(),
+            serverPath:
+                "/Users/skymac/Library/pnpm/global/5/.pnpm/typescript@4.8.4/node_modules/typescript/lib/tsserverlibrary.js"
+                    .to_owned(),
+            // serverPath: "/Users/xiaoxin/Library/pnpm/global/5/.pnpm/typescript@4.7.4/node_modules/typescript/lib/tsserverlibrary.js".to_owned(),
             localizedPath: None, // localizedPath: Some(
                                  //     "/Users/skymac/node_modules/typescript/lib/zh-cn/diagnosticMessages.generated.json"
                                  //         .to_owned(),
                                  // ),
         },
-        languageFeatures: language_features,
-        documentFeatures: document_features,
+        languageFeatures: Some(get_main_language_feature()),
+        documentFeatures: Some(get_doc_feature()),
     };
     serde_json::to_value(&initialization_options).ok()
 }
+
+fn find_volar_path(root_path: Option<String>) {}
