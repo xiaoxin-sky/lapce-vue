@@ -1,6 +1,10 @@
 name = "lapce-vue"
-version = "0.0.1"
+version = "0.0.2"
 author = "xiaoxin-sky"
 display-name = "vue"
 description = "vue"
-wasm = "bin/lapce-vue.wasm"
+wasm = "bin/lapce-vue.rustc.wasm"
+
+[activation]
+language = ["rust"]
+workspace-contains = ["*/Cargo.toml"]
