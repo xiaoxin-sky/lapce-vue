@@ -1,10 +1,10 @@
 name = "lapce-vue"
-version = "0.0.2"
+version = "0.0.1"
 author = "xiaoxin-sky"
 display-name = "vue"
-description = "vue"
+description = "vue Auto-complete、ts type-check"
 wasm = "bin/lapce-vue.rustc.wasm"
 
 [activation]
-language = ["rust"]
+language = ["vue"]
 workspace-contains = ["*/Cargo.toml"]

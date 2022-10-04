@@ -4,3 +4,4 @@ Cargo.lock
 .crates2.json
 /bin
 node_modules
+.DS_Store
