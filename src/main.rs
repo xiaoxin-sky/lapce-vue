@@ -26,7 +26,10 @@ fn initialize(params: InitializeParams) -> Result<()> {
     let server_args = vec!["--stdio".to_string()];
 
     let volt_uri = std::env::var("VOLT_URI")?;
-    let server_path = Url::parse(&volt_uri).unwrap().join("main.js").unwrap();
+    let server_path = Url::parse(&volt_uri)
+        .unwrap()
+        .join("lapce-volar/main.js")
+        .unwrap();
     let language_init_option = get_language_server_init_options(Url::parse(&volt_uri).ok());
 
     PLUGIN_RPC.start_lsp(
