@@ -1,14 +1,12 @@
-use std::{fs, path::Path};
-
 use anyhow::Result;
 use lapce_plugin::{
     psp_types::{
         lsp_types::{request::Initialize, DocumentFilter, DocumentSelector, InitializeParams, Url},
         Request,
     },
-    register_plugin, LapcePlugin, VoltEnvironment, PLUGIN_RPC,
+    register_plugin, LapcePlugin, PLUGIN_RPC,
 };
-use lapce_vue::config::{self, LanguageOptionEnum};
+use lapce_vue::config::get_language_server_init_options;
 use serde_json::Value;
 
 #[derive(Default)]
@@ -17,13 +15,6 @@ struct State {}
 register_plugin!(State);
 
 fn initialize(params: InitializeParams) -> Result<()> {
-    let main_language_feature_option =
-        config::get_initialization_options(LanguageOptionEnum::main_language_feature);
-    // let second_language_feature_option =
-    //     config::get_initialization_options(LanguageOptionEnum::second_language_feature);
-    // let doc_language_feature_option =
-    //     config::get_initialization_options(LanguageOptionEnum::document_feature);
-
     let document_selector: DocumentSelector = vec![DocumentFilter {
         // lsp language id
         language: Some(String::from("vue")),
@@ -32,36 +23,18 @@ fn initialize(params: InitializeParams) -> Result<()> {
         // like file:
         scheme: None,
     }];
-    let mut server_args = vec![
-        // "/Users/xiaoxin/node_modules/@volar/vue-language-server/out/nodeServer.js".to_string(),
-        // "/Users/johnsonchu/Desktop/GitHub/volar/packages/vue-language-server/bin/vue-language-server.js".to_string(),
-        // "--stdio".to_string(),
-        "--inspect".to_string(),
-    ];
+    let server_args = vec!["--stdio".to_string()];
 
-    let server_path =
-        Url::parse("file:///Users/skymac/workplace/volar/packages/vue-language-server/bin/run.sh")?;
+    let volt_uri = std::env::var("VOLT_URI")?;
+    let server_path = Url::parse(&volt_uri).unwrap().join("main.js").unwrap();
+    let language_init_option = get_language_server_init_options(Url::parse(&volt_uri).ok());
 
     PLUGIN_RPC.start_lsp(
-        server_path.clone(),
+        server_path,
         server_args.clone(),
         document_selector.clone(),
-        main_language_feature_option,
+        language_init_option,
     );
-
-    // PLUGIN_RPC.start_lsp(
-    //     server_path.clone(),
-    //     server_args.clone(),
-    //     document_selector.clone(),
-    //     second_language_feature_option,
-    // );
-    // PLUGIN_RPC.start_lsp(
-    //     server_path.clone(),
-    //     server_args.clone(),
-    //     document_selector.clone(),
-    //     doc_language_feature_option,
-    // );
-
     Ok(())
 }
 
