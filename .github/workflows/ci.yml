@@ -14,7 +14,7 @@ jobs:
         uses: MOZGIII/install-ldid-action@v1
         with:
           tag: v2.1.5-procursus2
-        
+
       - uses: actions/checkout@v3
       - name: Use Node.js
         uses: actions/setup-node@v1
@@ -26,13 +26,17 @@ jobs:
           cd lapce-volar
           npm install
           npx pkg vue-language-server.js --out-path ${{ github.workspace }}/lapce-volar/dist --target macos-x64,macos-arm64,linux-x64,linux-arm64,win-x64,win-arm64
-          tar -zcvf dist.tar.gz ./dist
-      - name: ls name
-        run: ls
+          cd dist
+          tar -zcvf  vue-language-server-linux-x64.tar.gz ./vue-language-server-linux-x64 && rm ./vue-language-server-linux-x64 
+          tar -zcvf  vue-language-server-win-x64.exe.tar.gz ./vue-language-server-win-x64.exe && rm ./vue-language-server-win-x64.exe 
+          tar -zcvf  vue-language-server-macos-x64.tar.gz ./vue-language-server-macos-x64 && rm ./vue-language-server-macos-x64 
+          tar -zcvf  vue-language-server-linux-arm64.tar.gz ./vue-language-server-linux-arm64 && rm ./vue-language-server-linux-arm64 
+          tar -zcvf  vue-language-server-macos-arm64.tar.gz ./vue-language-server-macos-arm64 && rm ./vue-language-server-macos-arm64 
+          tar -zcvf  vue-language-server-win-arm64.exe.tar.gz ./vue-language-server-win-arm64.exe && rm ./vue-language-server-win-arm64.exe 
+          ls
 
       - name: upload
         uses: actions/upload-artifact@v3
         with:
-          name: volar
-          path: ${{ github.workspace }}/lapce-volar/dist.tar.gz
+          path: ${{ github.workspace }}/lapce-volar/dist/*
           retention-days: 1
