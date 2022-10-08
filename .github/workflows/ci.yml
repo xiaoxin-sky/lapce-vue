@@ -26,14 +26,7 @@ jobs:
           cd lapce-volar
           npm install
           npx pkg vue-language-server.js --out-path ${{ github.workspace }}/lapce-volar/dist --target macos-x64,macos-arm64,linux-x64,linux-arm64,win-x64,win-arm64
-          zip vue-language-server-linux-x64.zip vue-language-server-linux-x64
-          zip vue-language-server-macos-x64.zip vue-language-server-macos-x64
-          zip vue-language-server-win-x64.zip vue-language-server-win-x64
-          zip vue-language-server-linux-arm64.zip vue-language-server-linux-arm64
-          zip vue-language-server-macos-arm64.zip vue-language-server-macos-arm64
-          zip vue-language-server-win-arm64.zip vue-language-server-win-arm64
-
-          cd dist && ls
+          ls
       - name: ls name
         run: ls
 
