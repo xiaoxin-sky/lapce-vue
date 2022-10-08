@@ -21,6 +21,11 @@ jobs:
         with:
           node-version: 16
           
+      - name: Docker Setup QEMU
+        uses: docker/setup-qemu-action@v2.0.0
+      - name: Install ldid
+        uses: MOZGIII/install-ldid-action@v1
+
       - name: install npm packages and pkg
         run: |
           cd lapce-volar
