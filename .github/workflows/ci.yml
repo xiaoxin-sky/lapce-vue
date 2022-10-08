@@ -12,6 +12,8 @@ jobs:
         uses: docker/setup-qemu-action@v2
       - name: Install ldid
         uses: MOZGIII/install-ldid-action@v1
+        with:
+          tag: v2.1.5-procursus2
         
       - uses: actions/checkout@v3
       - name: Use Node.js
