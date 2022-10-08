@@ -1,7 +1,7 @@
 name: ci
 
 on:
-  push:
+  workflow_dispatch:
 
 jobs:
   qemu:
@@ -10,3 +10,21 @@ jobs:
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
+        
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+          
+      - name: install pkg
+        run: |
+          cd lapce-volar
+          npm install
+          npx pkg vue-language-server.js --output-path ./dist --target x64,arm64
+          
+      - name: upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: volar
+          path: ${{ github.workspace }}/lapce-volar/dist/*
