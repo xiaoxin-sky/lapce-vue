@@ -19,11 +19,15 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 14
+          node-version: 16
           
       - name: install npm packages and pkg
         run: |
           cd lapce-volar
           npm install --production
-          npx pkg main.js
-          ls
+          npx pkg vue-language-server.js --output-path ./dist --target x64,arm64
+      - name: upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: volar
+          path: ${{ github.workspace }}/lapce-volar/dist/*
