@@ -7,14 +7,10 @@ on:
   workflow_dispatch:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  windows:
+  linux:
     runs-on: ubuntu-latest
     container: ubuntu:18.04
     
-    defaults:
-      run:
-        shell: bash
-
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js
@@ -23,7 +19,10 @@ jobs:
           node-version: 16
           
       - name: install qemu
-        run: apt-get install qemu binfmt-support qemu-user-static
+        run: |
+          apt-get -y update
+          apt-get -y install qemu binfmt-support qemu-user-static
+          
         
       - name: Install ldid
         uses: MOZGIII/install-ldid-action@v1
