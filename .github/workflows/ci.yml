@@ -26,7 +26,7 @@ jobs:
           cd lapce-volar
           npm install
           npx pkg vue-language-server.js --out-path ${{ github.workspace }}/lapce-volar/dist --target macos-x64,macos-arm64,linux-x64,linux-arm64,win-x64,win-arm64
-          cd dist && ls
+          tar -zcvf dist.tar.gz ./dist
       - name: ls name
         run: ls
 
@@ -34,4 +34,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: volar
-          path: ${{ github.workspace }}/lapce-volar/dist/*
+          path: ${{ github.workspace }}/lapce-volar/dist.tar.gz
+          retention-days: 1
