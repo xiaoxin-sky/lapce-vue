@@ -10,7 +10,9 @@ jobs:
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
-
+      - name: Install ldid
+        uses: MOZGIII/install-ldid-action@v1
+        
       - uses: actions/checkout@v3
       - name: Use Node.js
         uses: actions/setup-node@v1
