@@ -8,7 +8,8 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   windows:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
+    container: ubuntu:18.04
     
     defaults:
       run:
@@ -21,8 +22,9 @@ jobs:
         with:
           node-version: 16
           
-      - name: Docker Setup QEMU
-        uses: docker/setup-qemu-action@v2.0.0
+      - name: install qemu
+        run: apt install qemu binfmt-support qemu-user-static
+        
       - name: Install ldid
         uses: MOZGIII/install-ldid-action@v1
 
