@@ -1,0 +1,29 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Release
+
+# Controls when the workflow will run
+on:
+  workflow_dispatch:
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  windows:
+    runs-on: windows-latest
+    
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+          
+      - name: install npm packages and pkg
+        run: |
+          cd lapce-volar
+          npm install --production
+          npx pkg main.js
+          ls
