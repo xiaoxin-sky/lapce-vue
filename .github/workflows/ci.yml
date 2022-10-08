@@ -2,30 +2,30 @@ name: ci
 
 on:
   workflow_dispatch:
+  push:
 
 jobs:
   qemu:
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Set up QEMU
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
-        
+
       - uses: actions/checkout@v3
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
           node-version: 16
-          
+
       - name: install pkg
         run: |
           cd lapce-volar
           npm install
-          npx pkg vue-language-server.js --output-path ${{ github.workspace }}/lapce-volar/dist --target x64,arm64
+          npx pkg vue-language-server.js --out-path ${{ github.workspace }}/lapce-volar/dist --target x64,arm64
           ls
       - name: ls name
         run: ls
-        
+
       - name: upload
         uses: actions/upload-artifact@v3
         with:
