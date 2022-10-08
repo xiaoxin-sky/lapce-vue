@@ -18,10 +18,10 @@ jobs:
         with:
           node-version: 16
           
-      - name: install qemu ldid
-        run: |
-          apt-get -y update
-          apt-get -y install qemu binfmt-support qemu-user-static ldid
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+        with:
+          platforms: arm64
 
       - name: install npm packages and pkg
         run: |
