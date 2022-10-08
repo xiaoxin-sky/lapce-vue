@@ -23,7 +23,7 @@ jobs:
           node-version: 16
           
       - name: install qemu
-        run: apt install qemu binfmt-support qemu-user-static
+        run: apt-get install qemu binfmt-support qemu-user-static
         
       - name: Install ldid
         uses: MOZGIII/install-ldid-action@v1
