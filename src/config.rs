@@ -36,7 +36,7 @@ pub struct LanguageServerInitializationOptions {
 pub fn get_language_server_init_options(root_url: Option<Url>) -> Option<Value> {
     let root_url = root_url.unwrap();
     let tsdk = root_url
-        .join("lapce-volar/node_modules/typescript/lib")
+        .join("node_modules/typescript/lib")
         .unwrap()
         .to_file_path()
         .unwrap()

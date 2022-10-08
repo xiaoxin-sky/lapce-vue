@@ -2,8 +2,11 @@
   "name": "lapce-volar",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
-  "scripts": {},
+  "main": "vue-language-server.js",
+  "scripts": {
+    "build": "pkg main.js",
+    "build:mac": "pkg main.js -t node14-macos-x64"
+  },
   "keywords": [],
   "author": "",
   "license": "MIT",
