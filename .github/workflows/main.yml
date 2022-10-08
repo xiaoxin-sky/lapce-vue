@@ -18,16 +18,15 @@ jobs:
         with:
           node-version: 16
           
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-        with:
-          platforms: arm64
+      - name: ARM runner
+        uses: pguyot/arm-runner-action@v2.4.0
 
-      - name: install npm packages and pkg
+      - name: install pkg
         run: |
           cd lapce-volar
-          npm install --production
+          npm install
           npx pkg vue-language-server.js --output-path ./dist --target x64,arm64
+          
       - name: upload
         uses: actions/upload-artifact@v3
         with:
