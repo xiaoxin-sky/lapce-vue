@@ -1,17 +1,14 @@
 {
   "name": "lapce-volar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "vue-language-server.js",
-  "scripts": {
-    "build": "pkg main.js",
-    "build:mac": "pkg main.js -t node14-macos-x64"
-  },
+  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@volar/vue-language-server": "1.0.0-beta.4",
+    "@volar/vue-language-server": "1.0.1",
     "typescript": "^4.8.4"
   },
   "devDependencies": {}
