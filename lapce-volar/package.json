@@ -1,6 +1,6 @@
 {
   "name": "lapce-volar",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "",
   "main": "vue-language-server.js",
   "scripts": {},
@@ -8,7 +8,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@volar/vue-language-server": "1.0.1",
+    "@volar/vue-language-server": "1.0.3",
     "typescript": "^4.8.4"
   },
   "devDependencies": {}
