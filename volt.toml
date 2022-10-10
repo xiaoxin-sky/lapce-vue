@@ -1,8 +1,8 @@
 name = "lapce-vue"
-version = "0.0.1"
+version = "0.0.2"
 author = "xiaoxin-sky"
 display-name = "vue"
-description = "vue Auto-complete、ts type-check"
+description = "vue auto-complete、ts type-check"
 wasm = "bin/lapce-vue.rustc.wasm"
 
 [activation]
