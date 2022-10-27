@@ -23,25 +23,51 @@ struct State {}
 register_plugin!(State);
 
 fn initialize(params: InitializeParams) -> Result<()> {
-    PLUGIN_RPC.stderr("启动lapce-vue");
-    download_volar()?;
-
     let document_selector: DocumentSelector = vec![DocumentFilter {
         // lsp language id
-        language: Some(String::from("vue")),
+        language: None,
         // glob pattern
-        pattern: Some(String::from("**.vue")),
+        pattern: Some(String::from("*.{vue,ts,js,tsx,jsx}")),
         // like file:
         scheme: None,
     }];
 
+    let server_path = params
+        .initialization_options
+        .as_ref()
+        .and_then(|options| options.get("serverPath"))
+        .and_then(|server_path| server_path.as_str())
+        .and_then(|server_path| {
+            if !server_path.is_empty() {
+                Some(server_path)
+            } else {
+                None
+            }
+        });
+
+    let language_init_option = get_language_server_init_options(params.root_uri);
+
     let server_args = vec!["--stdio".to_string()];
+
+    if let Some(server_path) = server_path {
+        PLUGIN_RPC.start_lsp(
+            Url::parse(&format!("urn:{}", server_path))?,
+            server_args,
+            document_selector,
+            language_init_option,
+        );
+        PLUGIN_RPC.stderr("自定义 server_path 启动lapce-vue成功");
+
+        return Ok(());
+    }
+
+    download_volar()?;
+
     let volt_uri = std::env::var("VOLT_URI")?;
     let server_path = Url::parse(&volt_uri)
         .unwrap()
         .join("vue-language-server")
         .unwrap();
-    let language_init_option = get_language_server_init_options(params.root_uri);
 
     PLUGIN_RPC.stderr(&format!("server_path：{}", server_path));
     PLUGIN_RPC.start_lsp(
@@ -50,6 +76,8 @@ fn initialize(params: InitializeParams) -> Result<()> {
         document_selector.clone(),
         language_init_option,
     );
+    PLUGIN_RPC.stderr("启动lapce-vue");
+
     Ok(())
 }
 

@@ -8,3 +8,7 @@ wasm = "bin/lapce-vue.rustc.wasm"
 [activation]
 language = ["vue"]
 workspace-contains = ["*/Cargo.toml"]
+
+[config."serverPath"]
+default = ""
+description = "Path to vue-language-server executable. When empty, it points to the bundled binary."

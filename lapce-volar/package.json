@@ -8,7 +8,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@volar/vue-language-server": "1.0.8",
+    "@volar/vue-language-server": "1.0.9",
     "typescript": "^4.8.4"
   },
   "devDependencies": {}
