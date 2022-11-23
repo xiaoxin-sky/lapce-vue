@@ -32,6 +32,8 @@ pub struct LanguageServerInitializationOptions {
     diagnosticModel: Option<DiagnosticModel>,
     #[serde(skip_serializing_if = "Option::is_none")]
     textDocumentSync: Option<u8>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    cancellationPipeName: Option<String>,
 }
 pub fn get_language_server_init_options(root_url: Option<Url>) -> Option<Value> {
     let root_url = root_url.unwrap();
@@ -48,6 +50,7 @@ pub fn get_language_server_init_options(root_url: Option<Url>) -> Option<Value> 
         serverMode: None,
         diagnosticModel: None,
         textDocumentSync: None,
+        cancellationPipeName: None,
     };
     serde_json::to_value(&initialization_options).ok()
 }

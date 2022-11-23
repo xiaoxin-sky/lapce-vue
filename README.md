@@ -2,17 +2,31 @@
 
 ### Preview
 
-![vue plugin](./image/lps.png "vue Plugin for lapce")
+![vue Plugin for lapce](https://raw.githubusercontent.com/xiaoxin-sky/lapce-vue/master/image/lps.png)
 
 ### Usage
 
-> Required: Lapce version must be greater than 2.0, and you can use Lapce nightly version. [click here to get the newest version](https://github.com/lapce/lapce/releases)
 
 ****
 
-**Installation through the plugin market**
+**Config language server path**
+> if download language Binary slow, You can set language server.
+> you need install @volar/vue-language-server first, and Paste the npm global xxx@volar/vue-language-server/bin/vue-language-server.js
 
-Open Lapce (version > 2.0 required) and click the plugin icon, then find the 'vue' plugin, and click install.
+install global vue language server
+```bash
+npm install @volar/vue-language-server -g
+```
+
+get global path
+```bash 
+npm root -g 
+# such as echo:  /Users/skymac/.nvm/versions/node/v14.19.2/lib/node_modules
+```
+
+such as: language server path
+`/Users/skymac/.nvm/versions/node/v14.19.2/lib/node_modules@volar/vue-language-server/bin/vue-language-server.js`
+
 
 **Manual installation** 
 
