@@ -8,8 +8,7 @@ icon = "./image/logo.png"
 repository = "https://github.com/xiaoxin-sky/lapce-vue"
 
 [activation]
-language = ["vue"]
-workspace-contains = ["*/Cargo.toml"]
+language = ["vue","javascript","typescript"]
 
 [config."serverPath"]
 default = ""
