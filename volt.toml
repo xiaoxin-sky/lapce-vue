@@ -5,6 +5,7 @@ display-name = "vue"
 description = "vue auto-complete,ts type-check,diagnosis"
 wasm = "bin/lapce-vue.rustc.wasm"
 icon = "./image/logo.png"
+repository = "https://github.com/xiaoxin-sky/lapce-vue"
 
 [activation]
 language = ["vue"]
